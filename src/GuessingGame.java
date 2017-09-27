@@ -1,60 +1,54 @@
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
-
 import java.security.SecureRandom;
 import java.util.Scanner;
 
-/**
- * Created by Rex98 on 7/31/2017.
- */
+
 public class GuessingGame {
     //PLayer will guess numbers from 1-10, if the player's guess is the computer's guess, the player wins. PLayer has 3 chances to win.
 
     public static void main(String[] args) {
-
+        Methods myMethods = new Methods();
         Scanner userIn = new Scanner(System.in);
         SecureRandom ranGen = new SecureRandom();
 
 
 //Start the Game
-        System.out.println("****Welcome to the guessing game****");
-
-
-        System.out.println("What is your name?");
-        String playerName = userIn.nextLine();
+        myMethods.startingGameString();
+        myMethods.setPlayerName(userIn.next());
 //Computer:
-        System.out.println("Hello " + playerName);
+        myMethods.computerGreeting1();
 
 
-int playerGuess;
+
 
         for (int counter = 2; counter > -1; --counter) {
 //
-            while (counter == 2){
-                System.out.println("Lets begin\n");
-                break;
+            if (counter == 2){
+                System.out.println("\nLets begin");
             }
-            System.out.println("\nComputer: What number am I thinking of between 1 and 10?");
+
+            myMethods.computerStatement1(); //What number am I thinking of?
 
             //creating the computer's guess (Random number 1-10)
             int computerGuess = 1 + ranGen.nextInt(10);
 
             //player guesses number
-            playerGuess = userIn.nextInt();
+            myMethods.setPlayerGuess(userIn.nextInt());
 
             // System.out.println("You guessed " + playerGuess);
 
-            if (playerGuess == computerGuess) {
+
+            if (myMethods.getPlayerGuess() == computerGuess) {
                 System.out.println("The computer guessed " + computerGuess + " You guessed right!!!\n YOU ARE THE WINNER!!!");
 
                 counter = 0;
-            } else if (computerGuess - playerGuess <= 2 && computerGuess - playerGuess > 0) {
-                System.out.println("The computer guessed " + computerGuess + " and the player guessed " + playerGuess + "\nSo Close!! Just " + (computerGuess - playerGuess) + " number(s) away!  Try again!!!!");
+            } else if (computerGuess - myMethods.getPlayerGuess() <= 2 && computerGuess - myMethods.getPlayerGuess() > 0) {
+                System.out.println("The computer guessed " + computerGuess + " and the player guessed " + myMethods.getPlayerGuess() + "\nSo Close!! Just " + (computerGuess - myMethods.getPlayerGuess()) + " number(s) away!  Try again!!!!");
 
-            } else if (playerGuess - computerGuess <= 2 && playerGuess - computerGuess > 0) {
-                System.out.println("The computer guessed " + computerGuess + " and the player guessed " + playerGuess + "\nSo Close!! Just " + (playerGuess - computerGuess) + " number(s) away! Try again!!!!");
+            } else if (myMethods.getPlayerGuess() - computerGuess <= 2 && myMethods.getPlayerGuess() - computerGuess > 0) {
+                System.out.println("The computer guessed " + computerGuess + " and the player guessed " + myMethods.getPlayerGuess() + "\nSo Close!! Just " + (myMethods.getPlayerGuess() - computerGuess) + " number(s) away! Try again!!!!");
 
             } else {
-                System.out.println("The computer guessed " + computerGuess + " and the player guessed " + playerGuess + "!!");
+                System.out.println("The computer guessed " + computerGuess + " and the player guessed " + myMethods.getPlayerGuess() + "!!");
             }
 
             if (counter > 1) {
